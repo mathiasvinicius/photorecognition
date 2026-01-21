@@ -1,0 +1,48 @@
+services:
+  app:
+    build: .
+    container_name: photorec_app
+    restart: always
+    privileged: true
+    ports:
+      - "${APP_PORT:-8000}:8000"
+    volumes:
+      - /dev:/dev
+      - ./app:/app/app
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - type: bind
+        source: ${PHOTOS_DIR}
+        target: /mnt/photos
+        read_only: true
+        bind:
+          propagation: rslave
+      - /DATA/AppData/Photorecognition/Capturas:/mnt/Capturas
+      - /DATA/AppData/Photorecognition/config:/DATA/AppData/Photorecognition/config
+      - ${RECOVERY_DIR:-./data/recovery}:/mnt/recovery
+      - ${ORGANIZED_DIR:-./data/organized}:/mnt/organized
+      - ${CACHE_DIR:-./data/cache}:/cache
+    environment:
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - PHOTOS_DIR=/mnt/photos
+      - CACHE_DIR=/cache
+      - CAPTURES_DIR=/mnt/Capturas
+      - CAMERAS_FILE=/DATA/AppData/Photorecognition/config/cameras.json
+      - TZ=America/Sao_Paulo
+      - CACHE_MAX_GB=10
+      - CACHE_WEBP_QUALITY=70
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    container_name: photorec_db
+    restart: always
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - ${DATA_DIR}/postgres:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-5432}:5432"

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Camera Body -->
+  <rect x="32" y="128" width="448" height="320" rx="48" ry="48" fill="#0d6efd"/>
+  
+  <!-- Flash/Top part -->
+  <path d="M144 128 L176 64 H336 L368 128 Z" fill="#0b5ed7"/>
+  
+  <!-- Lens Outer Ring -->
+  <circle cx="256" cy="288" r="112" fill="#e9ecef"/>
+  
+  <!-- Lens Inner Ring -->
+  <circle cx="256" cy="288" r="96" fill="#212529"/>
+  
+  <!-- Lens Reflection -->
+  <circle cx="256" cy="288" r="80" fill="#343a40"/>
+  <circle cx="230" cy="260" r="20" fill="rgba(255,255,255,0.3)"/>
+  
+  <!-- Flash Light -->
+  <circle cx="416" cy="192" r="16" fill="#ffc107"/>
+</svg>

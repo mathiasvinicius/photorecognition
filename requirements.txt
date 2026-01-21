@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+python-multipart
+numpy
+Pillow
+sqlalchemy
+psycopg2-binary
+python-dotenv
+aiofiles
+
+# Face Recognition - InsightFace (more accurate than dlib)
+insightface
+onnxruntime
+
+# Video streaming
+opencv-python-headless
+onvif-zeep
